@@ -1,0 +1,37 @@
+package basicprogram;
+
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class WindowsHandling {
+
+	public static void main(String[] args) {
+		ChromeOptions op = new ChromeOptions();
+		op.addArguments("--remote-allow-origins=*");
+		System.setProperty("webdriver.chrome.driver",
+				"E:\\javanewse\\firstpro\\Drivers\\chromedriver_win32\\chromedriver.exe");
+		ChromeDriver driver = new ChromeDriver(op);
+		//WebDriver driver = new ChromeDriver(); 
+		driver.get("https://www.hyrtutorials.com/p/window-handles-practice.html");
+		driver.manage().window().maximize();
+		
+		driver.findElement(By.id("newTabsWindowsBtn")).click();
+		System.out.println(driver.getWindowHandles());
+		Set<String> windowHandles = driver.getWindowHandles();
+		
+		String title;
+		for (String string : windowHandles) {
+			title = driver.switchTo().window(string).getTitle();
+			System.out.println(title);
+			
+			if(title.contains("AlertsDemo")) {
+				
+			}
+		}
+	}
+
+}
